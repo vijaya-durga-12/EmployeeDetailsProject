@@ -1,35 +1,46 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import LoginPage from './components/Loginpage';
-import Adminnav from './components/Adminnav';
 import Home from './components/Home';
-import EmployeeList from './components/Employeelist';
 import CreateEmployee from './components/Createemployee';
-import EditEmployee from './components/Editemployee';
 import reportWebVitals from './reportWebVitals';
+import App from './App';
+import { store } from './redux';
+import { Provider } from 'react-redux';
+import Editemployee from './components/Editemployee';
+import ViewEmployee from './components/ViewEmployee';
+import Adminnav from './components/Adminnav';
 
-const App = () => {
-    return (
-        <BrowserRouter>
-            <Adminnav />
-            <Routes>
-                <Route path="/" element={<LoginPage />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/employeelist" element={<EmployeeList />} />
-                <Route path="/createemployee" element={<CreateEmployee />} />
-                <Route path="/editemployee/:id" element={<EditEmployee />} />
-            </Routes>
-        </BrowserRouter>
-    );
-};
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
+const router=createBrowserRouter(
+  createRoutesFromElements(
+    // <Route path="/" element={<App/>}>
+    // <Route path="/loginpage" element={<LoginPage />} />
+    // <Route path="/home" element={<Home />} />
+    // <Route path="/employeelist" element={<EmployeeList />} />
+    // <Route path="/createemployee" element={<CreateEmployee />} />
+    // <Route path="/editemployee/:id" element={<EditEmployee />} />
+    // </Route>
+    <Route path="/" element={<App/>}>
+    <Route path="/home" element={<Home />} />
+    <Route path="/loginpage" element={<LoginPage />} />
+    <Route path="/adminnav" element={<Adminnav />} />
+    <Route path="/edit/:id" element={<Editemployee />} />
+    <Route path="/create" element={<CreateEmployee />} />
+    <Route path="/view" element={<ViewEmployee />} />
+    </Route>
+  )
+)
+
+const root=ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+ <React.StrictMode>
+  <Provider store={store}>
+    <RouterProvider router={router}/>
+  </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
 );
 
 reportWebVitals();

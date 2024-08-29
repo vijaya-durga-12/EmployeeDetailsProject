@@ -6,7 +6,7 @@ const Adminnav = () => {
   return (
     <div>
         <Navv/>
-        <Outlet/>
+        <Outlet />
     </div>
   )
 }
